@@ -21,6 +21,7 @@ CREATE TABLE Attendance (
     Emp_ID INT,
     Days_Present INT
 );
+Create
 #Which Department is the most expensive for the company:
 SELECT d.DEP_ID, Dep_Name, SUM(SALARY), AVG(SALARY) AS AVGSAL, COUNT(e.Emp_ID) as EmpCount
 FROM Departments as d
@@ -40,5 +41,17 @@ WHERE SALARY > DEPSAL;
     JOIN Attendance as a
     ON e.Emp_ID = a.Emp_ID) as Y
     WHERE Days_Present<AvgATT;
+# Which managers handle the highest teams?
+    SELECT e.Name AS MANAGER_NAME
+    COUNT(e1.NAME) AS TOTAL_EMPLOYEES
+    FROM EMPLOYEES as e
+    JOIN EMPLOYEES e1
+    ON e.EmpID=e1.MANAGER_ID
+    GROUPBY e.Name
+    ORDER BY TOTALEMPLOYEES DESC
+    LIMIT 1
+
+#  Create an Employee Performance Dashboard (where we need Employee name, department ID, Manager Name, Salary, Project_Name, Days Present
+    SELECT 
     
 

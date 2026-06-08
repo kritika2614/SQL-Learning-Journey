@@ -52,6 +52,34 @@ WHERE SALARY > DEPSAL;
     LIMIT 1
 
 #  Create an Employee Performance Dashboard (where we need Employee name, department ID, Manager Name, Salary, Project_Name, Days Present
-    SELECT 
+    SELECT e.Name,
+       e1.Name AS Manager_Name,
+       d.Dep_Name,
+       e.Salary,
+       p.Project_Name,
+       a.Days_present
+FROM Employees e
+LEFT JOIN Employees e1
+ON e.Manager_ID = e1.Emp_ID
+LEFT JOIN Departments d
+ON e.Dep_ID = d.Dep_ID
+LEFT JOIN Projects p
+ON e.Emp_ID = p.Emp_ID
+LEFT JOIN Attendance a
+ON e.Emp_ID = a.Emp_ID;
+
+# Which department appears most productive?
+SELECT d.Dep_Name, COUNT(DISTINCT e.Emp_ID) as employess_count, AVG(e.SALARY)as avg_Sal, AVG(a.DAYS_PRESENT) as avgattendance, COUNT(DISTINCT p.Project_Name)
+as no_of_project
+FROM departments as d
+LEFT JOIN EMPLOYEES AS e
+ON d.Dep_ID=e.Dep_ID
+LEFT JOIN PROJECTS as p
+ON e.Emp_ID=p.Emp_ID
+LEFT JOIN ATTENDANCE as a
+ON e.Emp_ID=a.Emp_ID
+GROUP BY d.Dep_Name
+ORDER BY no_of_project DESC;
+
     
 
